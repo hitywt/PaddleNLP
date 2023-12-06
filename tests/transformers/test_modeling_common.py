@@ -27,7 +27,7 @@ from typing import Optional, Tuple, Type
 
 import numpy as np
 import paddle
-import paddle.fluid as fluid
+import paddle.base as fluid
 from paddle.distributed.utils.launch_utils import (
     TrainerProc,
     find_free_ports,

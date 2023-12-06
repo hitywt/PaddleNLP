@@ -151,7 +151,7 @@ except:
 try:
     from paddle.io.dataloader.dataloader_iter import _DataLoaderIterBase
 except:
-    from paddle.fluid.dataloader.dataloader_iter import _DataLoaderIterBase
+    from paddle.base.dataloader.dataloader_iter import _DataLoaderIterBase
 
 async_save_queue = []
 g_cpu_optimizer_state_dict = {}
@@ -1629,7 +1629,7 @@ class Trainer:
                     not is_dp_group_support_in_group_sharded_parallel() or self.args.use_moe
                 ) and self.args.data_parallel_degree > 1:
                     try:
-                        from paddle.fluid.dygraph.parallel import sync_params_buffers
+                        from paddle.base.dygraph.parallel import sync_params_buffers
                     except ImportError:
                         # fix for new api in paddlepaddle v2.5
                         from paddle.distributed.parallel import sync_params_buffers

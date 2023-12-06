@@ -20,7 +20,7 @@ import paddle.nn as nn
 import paddle.nn.functional as F
 import paddle.tensor as tensor
 from paddle.distributed.fleet import fleet
-from paddle.fluid import layers
+from paddle.base import layers
 from paddle.nn.layer.transformer import _convert_param_attr_to_list
 
 import paddlenlp
@@ -815,7 +815,7 @@ class GPTModel(GPTPretrainedModel):
                 past_length = paddle.shape(cache[0].k)[-2]
             position_ids = paddle.arange(past_length, paddle.shape(input_ids)[-1] + past_length, dtype="int64")
             position_ids = position_ids.unsqueeze(0)
-            position_ids = paddle.fluid.layers.expand_as(position_ids, input_ids)
+            position_ids = paddle.base.layers.expand_as(position_ids, input_ids)
         embedding_output = self.embeddings(input_ids=input_ids, position_ids=position_ids)
 
         tgt_mask = None

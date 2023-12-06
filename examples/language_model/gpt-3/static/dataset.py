@@ -335,7 +335,7 @@ def create_pretrained_dataset(
                 for data in dataset:
                     yield tuple([np.expand_dims(np.array(x), axis=0) for x in data])
 
-            data_loader = paddle.fluid.reader.DataLoader.from_generator(
+            data_loader = paddle.base.reader.DataLoader.from_generator(
                 feed_list=data_holders, capacity=70, iterable=False
             )
             data_loader.set_sample_generator(data_gen, batch_size=args.micro_batch_size, places=places)

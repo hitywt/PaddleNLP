@@ -297,7 +297,7 @@ def do_train(args):
     if args.sharding_stage in [2, 3]:
         if args.dp_degree > 1:
             try:
-                from paddle.fluid.dygraph.parallel import sync_params_buffers
+                from paddle.base.dygraph.parallel import sync_params_buffers
             except ImportError:
                 from paddle.distributed.parallel import sync_params_buffers
 

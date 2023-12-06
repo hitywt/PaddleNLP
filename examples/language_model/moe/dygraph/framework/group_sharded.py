@@ -37,8 +37,8 @@ from paddle.distributed.fleet.meta_parallel.sharding.group_sharded_optimizer_sta
 from paddle.distributed.fleet.meta_parallel.sharding.group_sharded_stage2 import (
     GroupShardedStage2,
 )
-from paddle.fluid import core
-from paddle.fluid.dygraph import base as imperative_base
+from paddle.base import core
+from paddle.base.dygraph import base as imperative_base
 from paddle.incubate.distributed.models.moe.grad_clip import ClipGradForMOEByGlobalNorm
 from paddle.optimizer import Optimizer
 

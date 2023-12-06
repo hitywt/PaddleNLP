@@ -237,10 +237,10 @@ class AdamWDL(AdamW):
             if find_master:
                 master_weight = self._master_weights[param.name]
                 scaled_param = master_weight * decay_coeff
-                paddle.fluid.layers.assign(input=scaled_param, output=master_weight)
+                paddle.base.layers.assign(input=scaled_param, output=master_weight)
             else:
                 scaled_param = param * decay_coeff
-                paddle.fluid.layers.assign(input=scaled_param, output=param)
+                paddle.base.layers.assign(input=scaled_param, output=param)
 
     def _create_optimization_pass(self, parameters_and_grads):
         optimize_ops = super(AdamWDL, self)._create_optimization_pass(parameters_and_grads)

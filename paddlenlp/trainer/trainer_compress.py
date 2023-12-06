@@ -631,7 +631,7 @@ def _post_training_quantization_grid_search(self, model_dir):
 
     def _post_training_quantization(algo, batch_size, batch_nums):
         try:
-            from paddle.fluid.contrib.slim.quantization import PostTrainingQuantization
+            from paddle.base.contrib.slim.quantization import PostTrainingQuantization
         except ImportError:
             from paddle.static.quantization import PostTrainingQuantization
 
@@ -842,7 +842,7 @@ def _quant_embeddings(self, input_prefix):
 
     input_dir = os.path.dirname(input_prefix)
 
-    paddle.fluid.io.save_inference_model(
+    paddle.base.io.save_inference_model(
         input_dir,
         feed_target_names,
         fetch_targets,

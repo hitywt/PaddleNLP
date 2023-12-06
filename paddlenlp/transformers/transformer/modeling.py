@@ -20,7 +20,7 @@ import paddle.nn.functional as F
 try:
     from paddle.utils import map_structure
 except ImportError:
-    from paddle.fluid.layers.utils import map_structure
+    from paddle.base.layers.utils import map_structure
 from paddle.nn import (
     TransformerDecoder,
     TransformerDecoderLayer,
@@ -668,7 +668,7 @@ class TransformerModel(nn.Layer):
     The Transformer model.
 
     This model is a Paddle `paddle.nn.Layer <https://www.paddlepaddle.org.cn/documentation
-    /docs/en/api/paddle/fluid/dygraph/layers/Layer_en.html>`__ subclass. Use it as a regular Paddle Layer
+    /docs/en/api/paddle.base/dygraph/layers/Layer_en.html>`__ subclass. Use it as a regular Paddle Layer
     and refer to the Paddle documentation for all matter related to general usage and behavior.
 
     Args:

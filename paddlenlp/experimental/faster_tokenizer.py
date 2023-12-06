@@ -15,7 +15,7 @@
 import importlib
 
 import paddle
-import paddle.fluid.core as core
+import paddle.base.core as core
 import paddle.nn as nn
 from paddle.common_ops_import import LayerHelper
 
@@ -85,7 +85,7 @@ class FasterTokenizer(nn.Layer):
             logger.warning(
                 "The paddlepaddle version is {paddle.__version__}, not the latest. Please upgrade the paddlepaddle package (>= 2.2.1)."
             )
-            self.mod = importlib.import_module("paddle.fluid.core.ops")
+            self.mod = importlib.import_module("paddle.base.core.ops")
 
         vocab_buffer = to_vocab_buffer(vocab, "vocab")
         self.register_buffer("vocab", vocab_buffer, persistable=True)

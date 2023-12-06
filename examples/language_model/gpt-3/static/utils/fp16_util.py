@@ -22,7 +22,7 @@ import paddle
 
 def cast_model_to_fp16_block(program, amp_lists=None, use_fp16_guard=True):
     from paddle.static.amp import AutoMixedPrecisionLists
-    from paddle.fluid.contrib.mixed_precision.fp16_utils import (
+    from paddle.base.contrib.mixed_precision.fp16_utils import (
         _valid_types,
         _dtype_to_str,
         _need_keep_fp32,

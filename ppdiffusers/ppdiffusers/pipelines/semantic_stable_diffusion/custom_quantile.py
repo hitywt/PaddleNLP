@@ -18,7 +18,7 @@ import paddle
 try:
     from paddle.framework import in_dygraph_mode
 except ImportError:
-    from paddle.fluid.framework import in_dygraph_mode
+    from paddle.base.framework import in_dygraph_mode
 
 
 def _compute_quantile(x, q, axis=None, keepdim=False, ignore_nan=False):

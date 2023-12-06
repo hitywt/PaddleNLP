@@ -25,7 +25,7 @@ from .unet_2d_blocks import UNetMidBlock2D, get_down_block, get_up_block
 try:
     from paddle.amp.auto_cast import amp_state
 except ImportError:
-    from paddle.fluid.dygraph.amp.auto_cast import amp_state
+    from paddle.base.dygraph.amp.auto_cast import amp_state
 
 
 def finfo(dtype):

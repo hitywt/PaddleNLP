@@ -26,7 +26,7 @@ from paddle.distributed.fleet.meta_parallel import (
     SharedLayerDesc,
     get_rng_state_tracker,
 )
-from paddle.fluid import layers
+from paddle.base import layers
 from paddle.incubate.distributed.models import moe
 from paddle.nn.layer.transformer import _convert_param_attr_to_list
 

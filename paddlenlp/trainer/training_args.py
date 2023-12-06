@@ -840,12 +840,28 @@ class TrainingArguments:
 
                 if tensor_parallel_degree > 1:
                     strategy.tensor_parallel_configs = {"tensor_init_seed": self.seed}
+
+                def is_segment_parallel_supported():
+                    import inspect
+
+                    members = [name for (name, date) in inspect.getmembers(fleet.HybridCommunicateGroup)]
+                    return "get_sep_parallel_world_size" in members
+
                 if self.use_moe:
-                    order = ["sharding", "pp", "dp", "mp"]
+                    if is_segment_parallel_supported():
+                        order = ["sharding", "pp", "dp", "mp", "sep"]
+                    else:
+                        order = ["sharding", "pp", "dp", "mp", "sep"]
                 elif tensor_parallel_degree == 1 and sharding_parallel_degree == 1:
-                    order = ["pp", "dp", "sharding", "mp"]
+                    if is_segment_parallel_supported():
+                        order = ["pp", "dp", "sharding", "mp", "sep"]
+                    else:
+                        order = ["pp", "dp", "sharding", "mp"]
                 else:
-                    order = ["dp", "sharding", "pp", "mp"]
+                    if is_segment_parallel_supported():
+                        order = ["dp", "sharding", "pp", "mp", "sep"]
+                    else:
+                        order = ["dp", "sharding", "pp", "mp"]
 
                 hybrid_configs = {
                     "dp_degree": self.data_parallel_degree,

@@ -15,7 +15,7 @@
 import os
 
 import paddle
-import paddle.fluid.core as core
+import paddle.base.core as core
 import paddle.nn as nn
 from paddle.distributed.fleet import auto
 from ppfleetx.core.engine import BasicEngine

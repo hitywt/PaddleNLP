@@ -270,7 +270,7 @@ if is_paddle_available():
     try:
         from paddle.nn.layer.layers import HookRemoveHelper
     except ImportError:
-        from paddle.fluid.dygraph.layers import HookRemoveHelper
+        from paddle.base.dygraph.layers import HookRemoveHelper
 
     def register_load_state_dict_pre_hook(self, hook, with_module=False):
         handle = HookRemoveHelper(self.load_state_dict_pre_hooks)

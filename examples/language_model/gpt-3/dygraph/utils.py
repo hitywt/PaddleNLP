@@ -28,7 +28,7 @@ from paddle.distributed.sharding import group_sharded_parallel
 from paddlenlp.utils.log import logger
 
 try:
-    from paddle.fluid.dygraph.parallel import sync_params_buffers
+    from paddle.base.dygraph.parallel import sync_params_buffers
 except ImportError:
     from paddle.distributed.parallel import sync_params_buffers
 
