@@ -47,7 +47,7 @@ def setup_fast_ln():
             sources=[
                 "fast_ln/ln_api.cpp",
                 "fast_ln/ln_bwd_semi_cuda_kernel.cu",
-                #"fast_ln/ln_fwd_cuda_kernel.cu",
+                "fast_ln/ln_fwd_cuda_kernel.cu",
             ],
             extra_compile_args={
                 "cxx": ["-O3"],

@@ -762,10 +762,10 @@ class TrainingArguments:
                 self.sharding = []
 
             assert world_size % (sharding_parallel_degree * tensor_parallel_degree * pipeline_parallel_degree) == 0, (
-                "The world size for workers should be divided by sharding_parallel_degree, tensor_parallel_degree, and pipeline_parallel_degree, "
-                "sharding_parallel_degree:{sharding_parallel_degree}, tensor_parallel_degree:{tensor_parallel_degree}, "
-                "pipeline_parallel_degree:{pipeline_parallel_degree}, "
-                " world_size:{world_size}"
+                f"The world size for workers should be divided by sharding_parallel_degree, tensor_parallel_degree, and pipeline_parallel_degree, "
+                f"sharding_parallel_degree:{sharding_parallel_degree}, tensor_parallel_degree:{tensor_parallel_degree}, "
+                f"pipeline_parallel_degree:{pipeline_parallel_degree}, "
+                f" world_size:{world_size}"
             )
             self.data_parallel_degree = world_size // (
                 sharding_parallel_degree * tensor_parallel_degree * pipeline_parallel_degree
