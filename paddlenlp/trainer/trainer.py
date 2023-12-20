@@ -138,6 +138,13 @@ SCALER_NAME = "scaler.pdparams"
 MODEL_META_NAME = "model_meta.json"
 SHARDING_META_NAME = "shard_meta.json"
 
+def calc_md5(tensor):
+    if tensor is None:
+        return tensor
+    import hashlib
+    numpy_array = tensor.numpy()
+    array_bytes = numpy_array.tobytes()
+    return hashlib.md5(array_bytes).hexdigest()
 
 if is_datasets_available():
     import datasets
@@ -191,9 +198,8 @@ def async_save_optimizer(optimizer_state_dict, path, saved_signal_path, protocol
             g_cpu_optimizer_state_dict[k] = v.pin_memory()
         paddle.device.cuda.synchronize()
     clear_async_save_task_queue()
-    p = multiprocessing.Process(
-        target=_save_func, args=(g_cpu_optimizer_state_dict, path, saved_signal_path, protocol)
-    )
+    ctx = multiprocessing.get_context("spawn")
+    p = ctx.Process(target=_save_func, args=(g_cpu_optimizer_state_dict, path, saved_signal_path, protocol))
     p.start()
     async_save_queue.append(p)
 
@@ -900,6 +906,14 @@ class Trainer:
                     with model.no_sync():
                         tr_loss_step, outputs = self.training_step(model, inputs)
                 else:
+                    logger.info(f'debug cmp hack dev------------------------------------------------------------')
+                   #input_ids = calc_md5(inputs['input_ids'])
+                   #labels = calc_md5(inputs['labels'])
+                   #data_id = calc_md5(inputs['data_id'])
+                   #src_id = calc_md5(inputs['src_id'])
+                   #parameters = [calc_md5(p) for p in model.parameters()]
+                   #logger.info(f'debug epoch: {epoch}, step: {step}, input_ids: {input_ids}, labels: {labels}, data_id: {data_id}, src_id: {src_id}, model parameters({len(parameters)}): {parameters}')
+
                     tr_loss_step, outputs = self.training_step(model, inputs)
 
                 def fused_allreduce_gradients_no_sync(paramlist, hcg):
@@ -995,7 +1009,19 @@ class Trainer:
                                 f"optimizer not run, scale_before: {scale_before[0]}, scale_after: {scale_after[0]}"
                             )
                     elif isinstance(self.optimizer, HybridParallelOptimizer):
+                       #main_grad = [calc_md5(p.main_grad) for p in model.parameters()]
+                       #main_grad_name = [p.name for p in model.parameters()]
+                       #params = [calc_md5(p) for p in model.parameters()]
+                       #logger.info(f'debug optimizer beore main_grad_name: {main_grad_name}')
+                       #logger.info(f'debug optimizer beore main_grad: {main_grad}')
+                       #logger.info(f'debug optimizer beore params: {params}')
+
                         self.optimizer._step(parameters_list)
+
+                       #main_grad = [calc_md5(p.main_grad) for p in model.parameters()]
+                       #params = [calc_md5(p) for p in model.parameters()]
+                       #logger.info(f'debug optimizer after main_grad: {main_grad}')
+                       #logger.info(f'debug optimizer after params: {params}')
                     else:
                         self.optimizer.step()
 
