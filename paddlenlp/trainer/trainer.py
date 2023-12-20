@@ -906,7 +906,7 @@ class Trainer:
                     with model.no_sync():
                         tr_loss_step, outputs = self.training_step(model, inputs)
                 else:
-                    logger.info(f'debug cmp hack dev------------------------------------------------------------')
+                   #logger.info(f'debug cmp hack dev------------------------------------------------------------')
                    #input_ids = calc_md5(inputs['input_ids'])
                    #labels = calc_md5(inputs['labels'])
                    #data_id = calc_md5(inputs['data_id'])
