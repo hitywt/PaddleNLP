@@ -155,6 +155,7 @@ def process_engine_config(config):
 
     save_load_cfg["output_dir"] = save_load_cfg.get("output_dir", "./output")
     save_load_cfg["ckpt_dir"] = save_load_cfg.get("ckpt_dir", None)
+    save_load_cfg["auto_mode"] = save_load_cfg.get("auto_mode", Flase)
 
     # mix_precision
     config.Engine["mix_precision"] = config.Engine.get("mix_precision", {})
@@ -395,6 +396,7 @@ def get_config(fname, overrides=None, show=False):
     process_engine_config(config)
     create_attr_dict(AttrDict(config))
 
+    logger.info(f'debug config: {config}')
     if show:
         print_config(config)
     check_config(config)
