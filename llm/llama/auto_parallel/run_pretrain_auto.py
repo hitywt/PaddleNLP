@@ -539,6 +539,8 @@ def main():
         pipeline.vpp_degree = config.virtual_pp_degree
         pipeline.vpp_seg_method = training_args.virtual_pipeline_seg_method
 
+    # TODO 调整网络大小
+    config.num_hidden_layers = 8
     print("Final pre-training config:", config)
 
     # Set the dtype for loading model
